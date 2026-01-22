@@ -8,9 +8,20 @@ import re
 from django.core.exceptions import ValidationError
 from django.db import models
 from django.utils.translation import gettext_lazy as _
+from django.core.validators import RegexValidator
 from model_utils.models import TimeStampedModel
 from simple_history.models import HistoricalRecords
 
+
+def validate_currency_short_name(value):
+    """
+    Validate that reward currency short name contains only allowed characters.
+    """
+    if not re.match("^[a-zA-Z0-9_-]*$", value):
+        raise ValidationError(
+            _('Reward currency short name can only contain Latin letters, digits, '
+              'underscore (_), and hyphen (-). No spaces or other special characters allowed.')
+        )
 
 class Organization(TimeStampedModel):
     """
@@ -39,6 +50,27 @@ class Organization(TimeStampedModel):
     )
     active = models.BooleanField(default=True)
 
+    reward_currency_short_name = models.CharField(
+        max_length=50,
+        verbose_name='Reward Currency Short Name',
+        help_text=_(
+            'Short identifier for the reward currency (e.g., points, coins, stars, crowns). '
+            'Only Latin letters, digits, underscore (_), and hyphen (-) are allowed. '
+            'Will be used in APIs and internal references.'
+        ),
+        default='points',
+        validators=[validate_currency_short_name]
+    )
+    reward_currency_full_name = models.CharField(
+        max_length=100,
+        verbose_name='Reward Currency Full Name',
+        help_text=_(
+            'Full name of the reward currency (e.g., "Learning Points", "Achievement Coins", '
+            '"Skill Crowns", "Progress Stars").'
+        ),
+        default='Points',
+    )
+
     history = HistoricalRecords()
 
     def __str__(self):
@@ -49,6 +81,8 @@ class Organization(TimeStampedModel):
             raise ValidationError(_('Please do not use spaces or special characters in the short name '
                                     'field. Only allowed special characters are period (.), hyphen (-) '
                                     'and underscore (_).'))
+
+        validate_currency_short_name(self.reward_currency_short_name)
 
 
 class OrganizationCourse(TimeStampedModel):

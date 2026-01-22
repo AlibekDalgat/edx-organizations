@@ -17,7 +17,7 @@ class OrganizationSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Organization
         fields = ('id', 'created', 'modified', 'name', 'short_name', 'description', 'logo',
-                  'active', 'logo_url',)
+                  'active', 'logo_url', 'reward_currency_short_name', 'reward_currency_full_name')
 
     def update_logo(self, obj, logo_url):
         if logo_url:  # pragma: no cover
@@ -55,7 +55,9 @@ def serialize_organization(organization):
         'name': organization.name,
         'short_name': organization.short_name,
         'description': organization.description,
-        'logo': organization.logo
+        'logo': organization.logo,
+        'reward_currency_short_name': organization.reward_currency_short_name,
+        'reward_currency_full_name': organization.reward_currency_full_name,
     }
 
 
@@ -69,6 +71,8 @@ def serialize_organization_with_course(organization_course):
         'short_name': organization_course.organization.short_name,
         'description': organization_course.organization.description,
         'logo': organization_course.organization.logo,
+        'reward_currency_short_name': organization_course.organization.reward_currency_short_name,
+        'reward_currency_full_name': organization_course.organization.reward_currency_full_name,
         'course_id': organization_course.course_id
     }
 
@@ -90,5 +94,7 @@ def deserialize_organization(organization_dict):
         name=organization_dict.get('name', ''),
         short_name=organization_dict.get('short_name', ''),
         description=organization_dict.get('description', ''),
-        logo=organization_dict.get('logo', '')
+        logo=organization_dict.get('logo', ''),
+        reward_currency_short_name=organization_dict.get('reward_currency_short_name', 'points'),
+        reward_currency_full_name=organization_dict.get('reward_currency_full_name', 'Points')
     )

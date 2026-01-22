@@ -110,6 +110,8 @@ def create_organization(organization):
         'name': string,
         'description': string (optional),
         'logo': string (optional),
+        'reward_currency_short_name': string (optional),
+        'reward_currency_full_name': string (optional),
     }
 
     If an organization with the given `short_name` already exists, we will just
@@ -133,6 +135,8 @@ def create_organization(organization):
             name=organization_obj.name,
             description=organization_obj.description,
             logo=organization_obj.logo,
+            reward_currency_short_name=organization_obj.reward_currency_short_name,
+            reward_currency_full_name=organization_obj.reward_currency_full_name,
             active=True
         )
     return serializers.serialize_organization(organization)
@@ -260,6 +264,8 @@ def update_organization(organization):
         organization.short_name = organization_obj.short_name
         organization.description = organization_obj.description
         organization.logo = organization_obj.logo
+        organization.reward_currency_short_name = organization_obj.reward_currency_short_name
+        organization.reward_currency_full_name = organization_obj.reward_currency_full_name
         organization.active = organization_obj.active
     except internal.Organization.DoesNotExist:
         exceptions.raise_exception("organization", organization, exceptions.InvalidOrganizationException)

@@ -68,6 +68,8 @@ def bulk_add_organizations(organization_data_items, dry_run=False, activate=True
                 'name': string,
                 'description': string (optional),
                 'logo': string (optional),
+                'reward_currency_short_name': string (optional, default: 'points'),
+                'reward_currency_full_name': string (optional, default: 'Points'),
             }
 
             Organizations that do not already exist (by short_name) will be created.

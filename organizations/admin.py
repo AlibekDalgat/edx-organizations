@@ -66,7 +66,7 @@ class ActivateDeactivateAdminMixin:
 class OrganizationAdmin(ActivateDeactivateAdminMixin, admin.ModelAdmin):
     """ Admin for the Organization model. """
     actions = ['activate_selected', 'deactivate_selected']
-    list_display = ('name', 'short_name', 'logo', 'active',)
+    list_display = ('name', 'short_name', 'reward_currency_short_name', 'reward_currency_full_name', 'active',)
     list_filter = ('active',)
     ordering = ('name', 'short_name',)
     readonly_fields = ('created',)
