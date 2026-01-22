@@ -68,7 +68,7 @@ class Organization(TimeStampedModel):
             'Full name of the reward currency (e.g., "Learning Points", "Achievement Coins", '
             '"Skill Crowns", "Progress Stars").'
         ),
-        default='Points',
+        default='Баллы',
     )
 
     history = HistoricalRecords()

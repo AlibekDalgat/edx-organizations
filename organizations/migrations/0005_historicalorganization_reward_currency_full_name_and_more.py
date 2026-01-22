@@ -14,7 +14,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='historicalorganization',
             name='reward_currency_full_name',
-            field=models.CharField(default='Points', help_text='Full name of the reward currency (e.g., "Learning Points", "Achievement Coins", "Skill Crowns", "Progress Stars").', max_length=100, verbose_name='Reward Currency Full Name'),
+            field=models.CharField(default='Баллы', help_text='Full name of the reward currency (e.g., "Learning Points", "Achievement Coins", "Skill Crowns", "Progress Stars").', max_length=100, verbose_name='Reward Currency Full Name'),
         ),
         migrations.AddField(
             model_name='historicalorganization',
@@ -24,7 +24,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='organization',
             name='reward_currency_full_name',
-            field=models.CharField(default='Points', help_text='Full name of the reward currency (e.g., "Learning Points", "Achievement Coins", "Skill Crowns", "Progress Stars").', max_length=100, verbose_name='Reward Currency Full Name'),
+            field=models.CharField(default='Баллы', help_text='Full name of the reward currency (e.g., "Learning Points", "Achievement Coins", "Skill Crowns", "Progress Stars").', max_length=100, verbose_name='Reward Currency Full Name'),
         ),
         migrations.AddField(
             model_name='organization',
